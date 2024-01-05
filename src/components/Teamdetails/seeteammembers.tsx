@@ -87,8 +87,8 @@ const Seeteammembers = (params: any) => {
                 </thead>
                 {Array.isArray(teammembers) ? (
                     teammembers.map((teammem: TeamMember) => (
-                        <tbody>
-                            <tr key={teammem.id}>
+                        <tbody key={teammem.id}>
+                            <tr>
                                 <td className="py-2 px-4 border-b text-center">{teammem.memid}</td>
                                 <td className="py-2 px-4 border-b text-center">{teammem.mememail}</td>
                                 <td className="py-2 px-4 border-b text-center">{teammem.memname}</td>

@@ -56,8 +56,8 @@ const Allteams = () => {
                 </thead>
 
                 {teams.map((team) => (
-                    <tbody>
-                        <tr key={team.id} className="hover:bg-gray-100">
+                    <tbody key={team.id}>
+                        <tr className="hover:bg-gray-100">
                             <td className="py-2 px-4 border-b text-center">{team.teamid}</td>
                             <td className="py-2 px-4 border-b text-center">{team.teamname}</td>
                             <td className="py-2 px-4 border-b text-center">{team.memrole}</td>

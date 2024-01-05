@@ -43,7 +43,7 @@ const Createdteams = () => {
 
     return (
         <div className="">
-            <h1 className="text-[60px] pl-[400px]"> Team's Created By You</h1>
+            <h1 className="text-[60px] pl-[400px]"> Team&apos;s Created By You</h1>
 
             <table className="min-w-full bg-white border border-gray-300">
                 <thead>
@@ -55,8 +55,8 @@ const Createdteams = () => {
                 </thead>
 
                 {teams.map((team) => (
-                    <tbody>
-                        <tr key={team.id} className="hover:bg-gray-100">
+                    <tbody key={team.id}>
+                        <tr className="hover:bg-gray-100">
                             <td className="py-2 px-4 border-b text-center">{team.teamid}</td>
                             <td className="py-2 px-4 border-b text-center">{team.teamname}</td>
                             <td className="py-2 px-4 border-b text-center">
