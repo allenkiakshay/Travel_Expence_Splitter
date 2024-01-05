@@ -11,10 +11,9 @@ const SignUpForm = () => {
     const [repassword, setRePassword] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
+    const [message, setMessage] = useState<string | undefined>('');
 
     const dispatch = useDispatch();
-
-    const [message, setMessage] = useState<string | undefined>('');
 
     const handleSubmit = async () => {
         if (password === repassword) {

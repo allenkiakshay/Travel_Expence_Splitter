@@ -4,6 +4,7 @@ import { RootState } from "@/app/store";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Createteamcomp } from "@/auth/createteam";
+import { useRouter } from "next/navigation";
 
 const Createteam = () => {
     const user = useSelector((state: RootState) => state.userState.user)
@@ -11,6 +12,8 @@ const Createteam = () => {
     const [teamid, setTeamid] = useState('');
     const [teamname, setTeamname] = useState('');
     const [message, setMessage] = useState('');
+
+    const router = useRouter();
 
     const handleSubmit = async () => {
         setMessage('Createing Team...');
@@ -21,6 +24,7 @@ const Createteam = () => {
             setTeamid('');
             setTeamname('');
             setMessage('');
+            router.refresh();
         }catch (err) {
             console.log(err);
         }

@@ -4,15 +4,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import Joinedteam from "@/components/Jointeam/jointeam";
 import Createteam from "@/components/Createteam/createteam";
-import Showteams from "@/components/Showteams/showteams";
 import Createdteams from "@/components/Createteam/createdteams";
 import Joinedteams from "@/components/Jointeam/joinedteams";
+import Allteams from "@/components/Allmyteams/allteams";
 
 
 export default function Home() {
     const user = useSelector((state: RootState) => state.userState.user)
 
-    const [Teamtype, setTeamtype] = useState('');
+    const [Teamtype, setTeamtype] = useState('create');
 
     return (
         <>
@@ -42,7 +42,7 @@ export default function Home() {
                     <Createdteams/>
                     </>
                 ): Teamtype === 'show' ? (
-                    <Showteams/>
+                    <Allteams/>
                 ): null}
             </div>
             )}
