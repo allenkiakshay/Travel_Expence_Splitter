@@ -68,8 +68,6 @@ const Findpayments = (params: any) => {
         }
     }, [teammembers, mememail]);
 
-    console.log(payments[0]);
-
     return (
         <div className="">
             <h1 className="text-[45px] m-[10px] p-[8px] text-center">Payment History</h1>
