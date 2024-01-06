@@ -67,3 +67,15 @@ model createpayment {
   amount Int
   createdAt DateTime @default(now())
 }
+
+model payments {
+  id String @id @default(uuid())
+  teamid String
+  creatememid String @unique
+  mememail String
+  memname String
+  paymentin Int
+  paymentout Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

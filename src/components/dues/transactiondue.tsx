@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react"
 import FindMembers from "../Fetchdata/findmembers";
 import { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
-import PaymentEntry from "./paymententry";
 import { useRouter } from "next/navigation";
 
 interface TeamMember {
@@ -21,7 +20,7 @@ interface TeamMember {
     updatedAt: Date;
 }
 
-const Createpayment = (params: any) => {
+const Transactions = (params: any) => {
     const teamid = params.teamid.params.team;
     const user = useSelector((state: RootState) => state.userState.user)
     const mememail = user ? user : ""
@@ -32,28 +31,14 @@ const Createpayment = (params: any) => {
     const [selectedEmail, setSelectedEmail] = useState<string>('');
     const [amount, setAmount] = useState<number>(0);
     const [message, setMessage] = useState<string>('');
+    const [paymenttype, setPaymenttype] = useState('recive');
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedEmail(event.target.value);
     };
 
-    const handlesubmit = async (teamid: string, mememail: string, amount: number) => {
-        try {
-            const response = await PaymentEntry(teamid, mememail, amount);
-
-            if (response === true) {
-                setAmount(0);
-                setSelectedEmail('');
-                setMessage('')
-                router.refresh();
-            }
-            else {
-                setMessage("user not verified or there might be an issue try contacting our developers mail:- asrweb7@gmail.com")
-            }
-        }
-        catch (err) {
-            console.log(err);
-        }
+    const handlesubmit = async (teamid: string, mememail: string, amount: number, paymenttype:string) => {
+        console.log(teamid,mememail,amount,paymenttype)
     };
 
     useEffect(() => {
@@ -77,7 +62,13 @@ const Createpayment = (params: any) => {
 
     return (
         <div className="">
-            <h1 className="text-[45px] m-[10px] p-[8px] text-center"> Create a Expense </h1>
+            <h1 className="text-[45px] m-[10px] p-[8px] text-center"> Create a Payment </h1>
+            <button className={`m-[10px] p-[20px] border-[4px] border-black hover:bg-black hover:bg-opacity-30 ${paymenttype === 'recive' ? "bg-black bg-opacity-30":""}`} onClick={()=> setPaymenttype('recive')}>
+                Recive
+            </button>
+            <button className={`m-[10px] p-[20px] border-[4px] border-black hover:bg-black hover:bg-opacity-30 ${paymenttype === 'send' ? "bg-black bg-opacity-30":""}`} onClick={()=> setPaymenttype('send')}>
+                Send
+            </button>
             {admin ? (
                 <div className="m-[60px] mt-[20px] p-[10px] text-center">
                     <input type="number" value={amount} className="border-[2px] border-black" placeholder="Enter Amount" onChange={(e) => setAmount(parseInt(e.target.value))} />
@@ -86,7 +77,7 @@ const Createpayment = (params: any) => {
                         {Array.isArray(teammembers) ? (
                             <>
                                 {teammembers.map((teamMember) => (
-                                    <option key={teamMember.mememail} value={teamMember.mememail}>
+                                    <option key={teamMember.memname} value={teamMember.mememail}>
                                         {teamMember.mememail}
                                     </option>
                                 ))}
@@ -94,7 +85,7 @@ const Createpayment = (params: any) => {
                         ) : null}
                     </select>
 
-                    <button className="m-[8px] ml-[20px] p-[4px] px-[10px] bg-black rounded-[6px] bg-opacity-30" onClick={() => handlesubmit(teamid, selectedEmail, amount)}>Submit</button>
+                    <button className="m-[8px] ml-[20px] p-[4px] px-[10px] bg-black rounded-[6px] bg-opacity-30" onClick={() => handlesubmit(teamid, selectedEmail, amount, paymenttype)}>Submit</button>
                 </div>
             ) : (
                 <div className="">
@@ -106,4 +97,4 @@ const Createpayment = (params: any) => {
     );
 };
 
-export default Createpayment;
+export default Transactions;

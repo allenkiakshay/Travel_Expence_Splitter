@@ -50,6 +50,31 @@ CREATE TABLE "memberverify" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- CreateTable
+CREATE TABLE "createpayment" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "teamid" TEXT NOT NULL,
+    "teamname" TEXT NOT NULL,
+    "creatememid" TEXT NOT NULL,
+    "memname" TEXT NOT NULL,
+    "mememail" TEXT NOT NULL,
+    "amount" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "payments" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "teamid" TEXT NOT NULL,
+    "creatememid" TEXT NOT NULL,
+    "mememail" TEXT NOT NULL,
+    "memname" TEXT NOT NULL,
+    "paymentin" INTEGER NOT NULL,
+    "paymentout" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -58,3 +83,6 @@ CREATE UNIQUE INDEX "createteam_teamid_key" ON "createteam"("teamid");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "memberverify_creatememid_key" ON "memberverify"("creatememid");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "payments_creatememid_key" ON "payments"("creatememid");

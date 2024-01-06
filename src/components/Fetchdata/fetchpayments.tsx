@@ -2,18 +2,27 @@
 
 import prisma from "@/lib/prisma";
 
-const Fetchpayments = async (email:string, teamid:string) => {
-    const user = await prisma.user.findUnique({
-        where:{
-            email,
+const Fetchpayments = async (mememail: string, teamid: string, admin: boolean) => {
+    const user = await prisma.createmember.findMany({
+        where: {
+            mememail,
         }
     });
 
-    if (user) {
-        const mememail = email;
+    if (user.length !== 0 && admin === true) {
 
         const payments = await prisma.createpayment.findMany({
-            where:{
+            where: {
+                teamid
+            }
+        });
+
+        return payments
+    }
+
+    else if (user.length !== 0) {
+        const payments = await prisma.createpayment.findMany({
+            where: {
                 mememail,
                 teamid
             }
