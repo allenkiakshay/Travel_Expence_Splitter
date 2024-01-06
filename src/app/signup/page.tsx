@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { signUp } from '../../auth/signUp';
 import { useDispatch } from 'react-redux';
 import { adduser } from '@/slices/counterSlice';
+import { useRouter } from 'next/navigation';
 
 const SignUpForm = () => {
     const [email, setEmail] = useState('');
@@ -14,6 +15,7 @@ const SignUpForm = () => {
     const [message, setMessage] = useState<string | undefined>('');
 
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const handleSubmit = async () => {
         if (password === repassword) {
@@ -21,6 +23,7 @@ const SignUpForm = () => {
             const message = await signUp(email, name, phone, password);
             setMessage(message);
             dispatch(adduser(email));
+            router.push('/home');
         }
         else {
             setMessage("both the passwords should be same");

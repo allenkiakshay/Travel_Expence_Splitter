@@ -56,3 +56,14 @@ model memberverify {
   randomcode Int
   createdAt DateTime @default(now())
 }
+
+model createpayment {
+  id String @id @default(uuid())
+  teamid String
+  teamname String
+  creatememid String
+  memname String
+  mememail String
+  amount Int
+  createdAt DateTime @default(now())
+}
