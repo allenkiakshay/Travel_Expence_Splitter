@@ -5,6 +5,8 @@ import FindMembers from "../Fetchdata/findmembers";
 import { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import DueEntry from "./createdue";
+
 
 interface TeamMember {
     id: string;
@@ -37,8 +39,23 @@ const Transactions = (params: any) => {
         setSelectedEmail(event.target.value);
     };
 
-    const handlesubmit = async (teamid: string, mememail: string, amount: number, paymenttype:string) => {
-        console.log(teamid,mememail,amount,paymenttype)
+    const handlesubmit = async (teamid: string, mememail: string,selectedEmail:string, amount: number, paymenttype:string) => {
+        try {
+            const res = await DueEntry(teamid,mememail,selectedEmail,amount,paymenttype);
+
+            if (res === true) {
+                setAmount(0);
+                setPaymenttype('recive');
+                setSelectedEmail('');
+                router.refresh();
+            }
+            else {
+                setMessage("user not verified or there might be an issue try contacting our developers mail:- asrweb7@gmail.com")
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
     };
 
     useEffect(() => {
@@ -85,7 +102,7 @@ const Transactions = (params: any) => {
                         ) : null}
                     </select>
 
-                    <button className="m-[8px] ml-[20px] p-[4px] px-[10px] bg-black rounded-[6px] bg-opacity-30" onClick={() => handlesubmit(teamid, selectedEmail, amount, paymenttype)}>Submit</button>
+                    <button className="m-[8px] ml-[20px] p-[4px] px-[10px] bg-black rounded-[6px] bg-opacity-30" onClick={() => handlesubmit(teamid,mememail, selectedEmail, amount, paymenttype)}>Submit</button>
                 </div>
             ) : (
                 <div className="">
